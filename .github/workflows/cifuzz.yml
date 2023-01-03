@@ -1,22 +1,18 @@
 name: CIFuzz
 on: [pull_request]
 
-# cancel running workflows when new commits are pushed
-concurrency:
-  cancel-in-progress: true
-
 jobs:
   Fuzzing:
     runs-on: ubuntu-22.04
     steps:
     - name: Build Fuzzers
       id: build
-      uses: google/oss-fuzz/infra/cifuzz/actions/build_fuzzers@master
+      uses: google/oss-fuzz/infra/cifuzz/actions/build_fuzzers@cifuzz-logging
       with:
         oss-fuzz-project-name: 'botan'
         dry-run: false
     - name: Run Fuzzers
-      uses: google/oss-fuzz/infra/cifuzz/actions/run_fuzzers@master
+      uses: google/oss-fuzz/infra/cifuzz/actions/run_fuzzers@cifuzz-logging
       with:
         oss-fuzz-project-name: 'botan'
         fuzz-seconds: 180
